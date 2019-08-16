@@ -14,7 +14,7 @@ module OmniAuth
       option :bot_secret, nil
       option :button_config, {}
 
-      FIELDS      = %w[id first_name last_name username auth_date hash].freeze
+      FIELDS      = %w[id first_name last_name username auth_date photo_url hash].freeze
       HASH_FIELDS = %w[auth_date first_name id last_name photo_url username].freeze
 
       def request_phase
@@ -73,7 +73,7 @@ module OmniAuth
       private
 
       def check_errors
-        return fail!(:field_missing) unless FIELDS.all? { |f| request.params.include?(f) }
+        return fail!(:field_missing) unless required_fields(FIELDS).all? { |f| request.params.include?(f) }
         return fail!(:signature_mismatch) unless check_signature
 
         if Time.now.to_i - request.params['auth_date'].to_i > 86400
@@ -83,10 +83,14 @@ module OmniAuth
 
       def check_signature
         secret = OpenSSL::Digest::SHA256.digest(options[:bot_secret])
-        signature = HASH_FIELDS.map { |f| "%s=%s" % [f, request.params[f]] }.join("\n")
+        signature = required_fields(HASH_FIELDS).map { |f| "%s=%s" % [f, request.params[f]] }.join("\n")
         hashed_signature = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new, secret, signature)
 
         request.params['hash'] == hashed_signature
+      end
+
+      def required_fields(fields)
+        request.params.include?('photo_url') ? fields : fields.reject { |f| f.eql? 'photo_url' }
       end
     end
   end
