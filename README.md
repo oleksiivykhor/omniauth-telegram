@@ -1,4 +1,4 @@
-# OmniAuth Telegram &nbsp;[![Build Status](https://secure.travis-ci.org/yurijmi/omniauth-telegram.svg?branch=master)](https://travis-ci.org/yurijmi/omniauth-telegram) [![Gem Version](https://img.shields.io/gem/v/omniauth-telegram.svg)](https://rubygems.org/gems/omniauth-telegram)
+# OmniAuth Telegram
 
 Telegram Strategy for OmniAuth. You'll need to setup a bot for Telegram first. [More info here](https://core.telegram.org/widgets/login)
 
@@ -7,7 +7,7 @@ Telegram Strategy for OmniAuth. You'll need to setup a bot for Telegram first. [
 Add to your `Gemfile`:
 
 ```ruby
-gem 'omniauth-telegram'
+gem 'omniauth-telegram', git: 'https://github.com/oleksiivykhor/omniauth-telegram'
 ```
 
 Then `bundle install`.

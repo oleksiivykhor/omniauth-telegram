@@ -1,2 +1,2 @@
-require "omniauth/telegram/version"
-require "omniauth/strategies/telegram"
+require 'omniauth/telegram/version'
+require 'omniauth/strategies/telegram'
