@@ -57,6 +57,10 @@ module OmniAuth
         request.params['id']
       end
 
+      credentials do
+        { token: request.params['hash'] }
+      end
+
       info do
         {
           name:       "#{request.params['first_name']} #{request.params['last_name']}",
